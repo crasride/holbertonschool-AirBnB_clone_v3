@@ -19,6 +19,8 @@ import os
 import pep8
 import unittest
 DBStorage = db_storage.DBStorage
+# testing this library import to solve task3
+storage = models.storage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 
@@ -86,3 +88,33 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    # New tests task3 _ testing for .get() properly.
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test that .get properly
+        method gets an objetc, return None if do not exits
+        """
+        instance = State(name="JoseLand")
+        instance.save()
+
+        instance2 = storage.get(State, instance.id)
+        instance3 = storage.get(State, 'wrong_id')
+
+        self.assertEqual(instance, instance2)
+        self.assertIsNot(instance3)
+
+    # New tests task3 _ testing for .count() properly.
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Testing count properly return count of specified class or all
+        all classes if None is pass
+        """
+        user_count = storage.count(User)
+        total_count = storage.count()
+
+        new_user = User(email="Jose@hern", password="JamesB")
+        new_user.save()
+
+        self.assertEqual(storage.count(User), user_count + 1)
+        self.assertEqual(storage.count(), total_count + 1)
