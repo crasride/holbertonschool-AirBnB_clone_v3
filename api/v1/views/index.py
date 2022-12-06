@@ -35,6 +35,6 @@ def objects():
     """ objects endpoint """
     count_dict = {}
     for name, cls in list_classes.items():
-        cls_count = storage.count(cls)
-        count_dict[name] = cls_count
+        count = storage.count(cls)
+        count_dict[name] = count
     return jsonify(count_dict)
