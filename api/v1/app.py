@@ -18,9 +18,9 @@ def close_session(exception):
 
 
 @app.errorhandler(404)
-def resource_not_found(error):
+def resource_not_found(exception):
     """ display error page not found 404 message """
-    return jsonify({"error": "Not Found"}), 404
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
