@@ -73,7 +73,7 @@ def update_city(city_id):
     opc_request = request.get_json()
     if opc_request is None:
         return 'Not a JSON', 400
-    for key in ('id', 'created_at', 'updated_at', 'state_id'):
+    for key in ('id', 'state_id', 'created_at', 'updated_at'):
         opc_request.pop(key, None)
     for key, value in opc_request.items():
         setattr(dict, key, value)
