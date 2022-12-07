@@ -36,8 +36,8 @@ def get_amenities(amenities_id=None):
 def delete_amenity(amenity_id):
     """deletes amenity based on id"""
     amenity = storage.get((amenity), amenity_id)
-    state = storage.get((state), amenity_id)
-    if state is None:
+    #state = storage.get((state), amenity_id)
+    if amenity is None:
         abort(404)
     storage.delete(amenity)
     storage.save()
