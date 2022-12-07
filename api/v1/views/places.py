@@ -10,7 +10,7 @@ from models.state import State
 
 
 # Retrieves the list of all Place objects of a City
-@app_views.route('/cities/<city_id>/place', methods=['GET'],
+@app_views.route('/cities/<city_id>/place/', methods=['GET'],
                  strict_slashes=False)
 def get_all_place(city_id):
     """ list of all Objects in a City """
