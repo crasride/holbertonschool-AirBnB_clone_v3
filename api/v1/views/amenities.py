@@ -35,11 +35,11 @@ def get_amenities(amenities_id=None):
                  strict_slashes=False)
 def delete_amenity(amenity_id):
     """deletes amenity based on id"""
-    amenity = storage.get((amenity), amenity_id)
+    n_dict = storage.get(Amenity, amenity_id)
     # state = storage.get((state), amenity_id)
-    if amenity is None:
+    if n_dict is None:
         abort(404)
-    storage.delete(Amenity)
+    storage.delete(n_dict)
     storage.save()
     return (jsonify({})), 200
 
