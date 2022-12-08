@@ -117,20 +117,16 @@ class TestFileStorage(unittest.TestCase):
     # Test task3 get and count properly.
     @unittest.skipIf(models.storage_t == 'db', "not testing FileStorage")
     def test_get(self):
-        """Test .get properly, gets objects or return None
-        if no match.
+        """Test .get properly, gets objects if no match.
         """
-        storage = FileStorage()
-
-        instance = City(id='my_id')
-        storage.new(instance)
-        storage.save()
-
-        instance2 = storage.get(City, 'my_id')
-        instance3 = storage.get(City, 'unkwon_id')
-
-        self.asserEqual(instance, instance2)
-        self.asserIsNone(instance3)
+        s = State(name="California")
+        s.save()
+        u = User()
+        u.save()
+        self.assertIs(s, models.storage.get(State, s.id))
+        self.assertIs(u, models.storage.get(User, u.id))
+        self.assertIs(None, models.storage.get(State, "fake_id"))
+        self.assertIs(None, models.storage.get(User, "fake_id"))
 
     @unittest.skipIf(models.storage_t == 'db', "not testing FileStorage")
     def test_count(self):
