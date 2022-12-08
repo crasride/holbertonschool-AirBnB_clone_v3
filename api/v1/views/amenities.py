@@ -27,7 +27,7 @@ def get_amenity_id(amenities_id=None):
         new_dict = storage.get(Amenity, amenities_id)
         if new_dict is None:
             return abort(404)
-    return jsonify(new_dict.to_dict())
+        return jsonify(new_dict.to_dict())
 
 
 # Deletes a Amenity object:: DELETE /api/v1/amenities/<amenity_id>
