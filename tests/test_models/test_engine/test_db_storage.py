@@ -95,14 +95,15 @@ class TestFileStorage(unittest.TestCase):
         """Test that .get properly
         method gets an objetc, return None if do not exits
         """
-        instance = State(name="JoseLand")
-        instance.save()
-
-        instance2 = storage.get(State, instance.id)
-        instance3 = storage.get(State, 'wrong_id')
-
-        self.assertEqual(instance, instance2)
-        self.assertIsNot(instance3)
+        s = State(name="California")
+        s.save()
+        u = User(first_name="Jake", last_name="John", password="jhftyd",
+                 email="exemple@gmail.com")
+        u.save()
+        self.assertIs(s, models.storage.get(State, s.id))
+        self.assertIs(u, models.storage.get(User, u.id))
+        self.assertIs(None, models.storage.get(State, "fake_id"))
+        self.assertIs(None, models.storage.get(User, "fake_id"))
 
     # New tests task3 _ testing for .count() properly.
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
