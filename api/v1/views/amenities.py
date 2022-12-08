@@ -30,16 +30,16 @@ def ret_amenity_id(amenity_id=None):
 
 
 # Deletes a Amenity object:: DELETE /api/v1/amenities/<amenity_id>
-@app_views.route('/amenity/<amenity_id>/', methods=['DELETE'],
+@app_views.route('/amenity/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_amenity_id(amenity_id):
     """Deletes Amenity id"""
-    n_dict = storage.get(Amenity, amenity_id)
-    if n_dict is None:
+    amenity = storage.get(Amenity, amenity_id)
+    if amenity is None:
         return abort(404)
-    storage.delete(n_dict)
+    storage.delete(amenity)
     storage.save()
-    return jsonify({}), 200
+    return jsonify({})
 
 
 # Creates a Amenity: POST /api/v1/amenities
