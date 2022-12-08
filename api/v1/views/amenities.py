@@ -5,7 +5,7 @@ that handles all default RESTFul API actions
 """
 from api.v1.views import app_views
 from flask import jsonify
-from flask import abort, request, make_response
+from flask import abort, request
 from models.amenity import Amenity
 from models import storage
 
@@ -18,8 +18,8 @@ from models import storage
                  methods=['GET'], strict_slashes=False)
 def get_amenities(amenities_id=None):
     """ Return all amenities """
+    amenity = storage.get(Amenity, amenities_id)
     if amenities_id is not None:
-        amenity = storage.get(Amenity, amenities_id)
         return jsonify(Amenity.to_dict())
     abort(404)
 
@@ -30,7 +30,6 @@ def get_amenities(amenities_id=None):
 def delete_amenity(amenity_id):
     """deletes amenity based on id"""
     amenity = storage.get(Amenity, amenity_id)
-
     if amenity is not None:
         storage.delete(amenity)
         storage.save()
