@@ -36,10 +36,11 @@ def delete_amenity(amenity_id):
     """deletes amenity based on id"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
-        storage.delete(amenity)
-        storage.save()
-        return (jsonify({})), 200
-    abort(404)
+        abort(404)
+    storage.delete(amenity)
+    storage.save()
+    return (jsonify({})), 200
+
 
 
 # Creates a Amenity: POST /api/v1/amenities
