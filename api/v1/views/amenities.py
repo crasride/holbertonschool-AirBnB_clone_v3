@@ -19,7 +19,13 @@ from models import storage
 def get_amenities(amenities_id=None):
     """ Return all amenities """
     if amenities_id is None:
-        return jsonify(Amenity.to_dict())
+        new_dict = [amenity.to_dict() for amenity in
+                    storage.all(Amenity).value()]
+        return jsonify(new_dict)
+    else:
+        new_dict = storage.get(Amenity, amenities_id)
+        if new_dict is None:
+            return jsonify(Amenity.to_dict())
     abort(404)
 
 
