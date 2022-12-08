@@ -16,15 +16,11 @@ from models import storage
 # If the amenity_id is not linked to any Amenity object, raise a 404 error
 @app_views.route('/states/<state_id>',
                  methods=['GET'], strict_slashes=False)
-def get_amenities(amenities_id=None):
+def get_amenity_id(amenities_id=None):
     """ Return all amenities """
-    if amenities_id is None:
-        new_dict = [amenity.to_dict() for amenity in
-                    storage.all(Amenity).value()]
-        return jsonify(new_dict)
-    else:
-        new_dict = storage.get(Amenity, amenities_id)
-        if new_dict is None:
+    amenity = storage.get(Amenity, amenities_id)
+    if amenity is None:
+        if amenity is None:
             return abort(404)
     return jsonify(Amenity.to_dict())
 
@@ -37,7 +33,7 @@ def delete_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         return abort(404)
-    storage.delete(amenity)
+    storage.delete()
     storage.save()
     return (jsonify({})), 200
 
