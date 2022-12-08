@@ -18,16 +18,10 @@ from models import storage
                  methods=['GET'], strict_slashes=False)
 def get_amenities(amenities_id=None):
     """ Return all amenities """
-    if amenities_id is None:
-        new_dict = [amenity.to_dict() for amenity in
-                    storage.all(Amenity).values()]
-        return jsonify(new_dict)
-    else:
-        """ Return a Amenity object """
-        new_dict = storage.get(Amenity, amenities_id)
-        if new_dict is None:
-            abort(404)
-        return jsonify(new_dict.to_dict())
+    if amenities_id is not None:
+        amenity = storage.get(Amenity, amenities_id)
+        return jsonify(Amenity.to_dict())
+    abort(404)
 
 
 # Deletes a Amenity object:: DELETE /api/v1/amenities/<amenity_id>
@@ -35,13 +29,13 @@ def get_amenities(amenities_id=None):
                  strict_slashes=False)
 def delete_amenity(amenity_id):
     """deletes amenity based on id"""
-    n_dict = storage.get(Amenity, amenity_id)
-    # state = storage.get((state), amenity_id)
-    if n_dict is None:
-        abort(404)
-    storage.delete(n_dict)
-    storage.save()
-    return (jsonify({})), 200
+    amenity = storage.get(Amenity, amenity_id)
+
+    if amenity is not None:
+        storage.delete(amenity)
+        storage.save()
+        return (jsonify({})), 200
+    abort(404)
 
 
 # Creates a Amenity: POST /api/v1/amenities
