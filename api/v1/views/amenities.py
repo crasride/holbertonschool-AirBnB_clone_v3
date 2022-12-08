@@ -43,8 +43,8 @@ def delete_amenity_id(amenity_id):
 
 
 # Creates a Amenity: POST /api/v1/amenities
-@app_views.route('/amenities/', methods=['POST'], strict_slashes=False)
-def create_post_amenity(amenity_id):
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
+def create_post_amenity():
     """ Creates New Amenity """
     opc_reqst = request.get_json()
     if opc_reqst is None:
