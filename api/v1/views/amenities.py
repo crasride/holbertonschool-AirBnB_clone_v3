@@ -18,8 +18,8 @@ from models import storage
                  methods=['GET'], strict_slashes=False)
 def get_amenities(amenities_id=None):
     """ Return all amenities """
-    amenity = storage.get(Amenity, amenities_id)
     if amenities_id is not None:
+
         return jsonify(Amenity.to_dict())
     abort(404)
 
@@ -30,6 +30,7 @@ def get_amenities(amenities_id=None):
 def delete_amenity(amenity_id):
     """deletes amenity based on id"""
     amenity = storage.get(Amenity, amenity_id)
+
     if amenity is not None:
         storage.delete(amenity)
         storage.save()
